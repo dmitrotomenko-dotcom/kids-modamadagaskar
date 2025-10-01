@@ -3,7 +3,19 @@
 import { useShoppingCart } from 'use-shopping-cart';
 import toast from 'react-hot-toast';
 
-export default function AddToCart({ product }: { product: any }) {
+// Описуємо, як виглядає об'єкт товару, який ми додаємо в кошик
+interface ProductForCart {
+  name: string;
+  description: string;
+  id: string;
+  price: number;
+  currency: string;
+  image: string;
+  sku: string;
+}
+
+// Вказуємо точний тип для 'product'
+export default function AddToCart({ product }: { product: ProductForCart }) {
   const { addItem } = useShoppingCart();
 
   function handleAddToCart() {

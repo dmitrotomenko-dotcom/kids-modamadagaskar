@@ -1,10 +1,8 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-// Описуємо, як виглядають дані про замовлення
 interface OrderDetails {
   orderNumber: string;
   totalPrice: number;
@@ -14,17 +12,13 @@ export default function SuccessPage() {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
 
   useEffect(() => {
-    // Цей код виконається тільки в браузері, коли сторінка завантажиться
     const savedOrder = localStorage.getItem('lastOrder');
     if (savedOrder) {
       setOrderDetails(JSON.parse(savedOrder));
-      // Опціонально: видаляємо дані, щоб не показувати їх знову при перезавантаженні
-      // localStorage.removeItem('lastOrder');
     }
-  }, []); // Пустий масив означає, що ефект виконається лише один раз
+  }, []);
 
   if (!orderDetails) {
-    // Показуємо це, поки дані завантажуються, або якщо їх не знайдено
     return (
         <div className="text-center p-8">
             <p>Завантаження інформації про замовлення...</p>
@@ -49,10 +43,11 @@ export default function SuccessPage() {
           Для завершення оформлення, будь ласка, напишіть нам у **Viber** на номер:
         </p>
         <p className="text-2xl font-bold text-blue-800 mb-4">095-607-16-03</p>
-        <p className="mb-3">У повідомленні обов'язково вкажіть:</p>
+        <p className="mb-3">У повідомленні обов&apos;язково вкажіть:</p>
         <ul className="list-disc list-inside mb-4 pl-4">
           <li>Ваш номер замовлення: <strong className="text-red-600">{orderDetails.orderNumber}</strong></li>
-          <li>Бажаний спосіб доставки ("Нова Пошта" або "Укрпошта" та дані для відправки).</li>
+          {/* Виправляємо лапки */}
+          <li>Бажаний спосіб доставки (&quot;Нова Пошта&quot; або &quot;Укрпошта&quot; та дані для відправки).</li>
         </ul>
         <p>
           Адміністратор надасть вам номер картки для оплати або підтвердить відправку з післяплатою (наложений платіж).
