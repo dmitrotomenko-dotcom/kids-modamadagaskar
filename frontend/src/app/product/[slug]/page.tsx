@@ -3,19 +3,23 @@ import AddToCart from '../../components/AddToCart';
 
 // Ця функція генерує список всіх можливих сторінок товарів
 export async function generateStaticParams() {
-  const products = getSortedProductsData();
-  // Перевіряємо, чи є товари, щоб уникнути помилок на порожньому масиві
-  if (!products || products.length === 0) {
+  try {
+    const products = getSortedProductsData();
+    if (!products || products.length === 0) {
+      return [];
+    }
+    return products.map((product) => ({
+      slug: product.slug,
+    }));
+  } catch (error) {
+    // Якщо папка з товарами порожня або не існує, повертаємо порожній масив
+    console.warn("Could not generate static params, 'products' directory might be empty.");
     return [];
   }
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
 }
 
 // ОСЬ ГОЛОВНИЙ КОМПОНЕНТ СТОРІНКИ, ПОЗНАЧЕНИЙ ЯК 'export default'
 export default function ProductPage({ params }: { params: { slug: string } }) {
-  // Перевірка, чи існує товар, щоб уникнути помилок
   try {
     const product = getProductData(params.slug);
 
