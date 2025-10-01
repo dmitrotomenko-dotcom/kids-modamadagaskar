@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: dmitrotomenko@gmail.com/kids-moda-madagaskar # ❗️ ЗАМІНІТЬ ЦЕ!
+  branch: main
+  site_domain: kids-moda-madagaskar.pages.dev # ❗️ ЗАМІНІТЬ ЦЕ ПІСЛЯ РОЗГОРТАННЯ!
+
+media_folder: "public/images/products" # Шлях для збереження фото
+public_folder: "/images/products"     # Шлях для відображення фото на сайті
+
+collections:
+  - name: "product"
+    label: "Товари"
+    folder: "src/products" # Де зберігати файли товарів
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Назва товару", name: "name", widget: "string" }
+      - { label: "Ціна (тільки число, напр. 350)", name: "price", widget: "number" }
+      - { label: "Фотографія", name: "image", widget: "image" }
+      - { label: "Опис", name: "description", widget: "markdown" }
